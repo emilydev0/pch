@@ -25,7 +25,6 @@ const CHECKPOINTS = [
 
 const PAYMENT_METHODS = [
   "Chime",
-  "Gift cards",
   "Venmo",
   "Zelle",
   "Apple Pay",
@@ -383,7 +382,7 @@ function EntryRow({ entry: initialEntry }) {
   const [instrTitle, setInstrTitle] = useState(entry.assignedInstructionTitle || "");
   const [instrBody, setInstrBody] = useState(entry.assignedInstructionBody || "");
   const [savingInstr, setSavingInstr] = useState(false);
-  const [paymentMethod, setPaymentMethod] = useState(entry.selectedPaymentMethod || "");
+  const [paymentMethod, setPaymentMethod] = useState(entry.selectedPaymentMethod || entry.requestedPaymentMethod || "");
   const [savingPaymentMethod, setSavingPaymentMethod] = useState(false);
 
   const delivery = entry.delivery || {};
@@ -533,6 +532,11 @@ function EntryRow({ entry: initialEntry }) {
               Method: {entry.selectedPaymentMethod}
             </span>
           )}
+          {entry.requestedPaymentMethod && !entry.selectedPaymentMethod && (
+            <span className="rounded-full bg-orange-100 px-2.5 py-0.5 text-xs font-bold text-orange-700">
+              Requested: {entry.requestedPaymentMethod}
+            </span>
+          )}
           {activeIssues.length > 0 && (
             <span className="flex items-center gap-1 rounded-full bg-red-100 px-2.5 py-0.5 text-xs font-bold text-red-700">
               <HiExclamation className="h-3 w-3" />
@@ -561,7 +565,8 @@ function EntryRow({ entry: initialEntry }) {
               ["Pack", entry.selectedRewardPack],
               ["Price", entry.listedPrice],
               ["Prize Won", entry.prizeAmountWon || "—"],
-              ["Payment Method", entry.selectedPaymentMethod || "Not selected"],
+              ["Requested Payment", entry.requestedPaymentMethod || "Not selected"],
+              ["Assigned Payment", entry.selectedPaymentMethod || "Not assigned"],
               ["Status Code", entry.statusCode || "Pending"],
             ].map(([label, value]) => (
               <div key={label}>
@@ -729,6 +734,11 @@ function EntryRow({ entry: initialEntry }) {
             <p className="mb-3 text-xs font-extrabold uppercase tracking-widest text-blue-700">
               Assign Payment Method
             </p>
+            {entry.requestedPaymentMethod && (
+              <p className="mb-3 rounded-xl border border-orange-200 bg-white px-3 py-2 text-[11px] font-semibold text-orange-700">
+                User requested: {entry.requestedPaymentMethod}
+              </p>
+            )}
             <div className="flex flex-col gap-2 sm:flex-row">
               <select
                 value={paymentMethod}

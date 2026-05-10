@@ -98,7 +98,7 @@ export default function RewardReviewPage() {
           JSON.stringify({ entryId: data.entryId, statusCode: data.statusCode })
         );
       }
-      navigate(`/reward-status/${data.entryId}`);
+      navigate(`/payment-method/${data.entryId}`);
     } catch (err) {
       setServerError(err.message);
     } finally {
@@ -176,8 +176,8 @@ export default function RewardReviewPage() {
                   </svg>
                 </div>
                 <div>
-                  <p className="text-sm font-bold text-slate-800">Bank Transfer</p>
-                  <p className="text-xs text-slate-500">Admin will assign transfer details after your request is received.</p>
+                  <p className="text-sm font-bold text-slate-800">Payment method selected after submit</p>
+                  <p className="text-xs text-slate-500">You will choose Chime, Venmo, Zelle, Apple Pay, Bitcoin, Crypto, Ethereum, or E-transfer on the next page.</p>
                 </div>
               </div>
 

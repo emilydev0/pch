@@ -571,7 +571,9 @@ export default function RewardStatusPage() {
                   <p className="text-xs font-bold uppercase tracking-widest text-blue-700">Payment Method Pending</p>
                   <h2 className="mt-2 font-display text-xl font-extrabold text-blue-950">Waiting for admin assignment</h2>
                   <p className="mt-2 text-sm leading-6 text-blue-900">
-                    The receipt upload slot will appear here once the admin assigns a payment method for this request.
+                    {entry.requestedPaymentMethod
+                      ? `You selected ${entry.requestedPaymentMethod}. The receipt upload slot will appear here once the admin assigns the final payment method for this request.`
+                      : "The receipt upload slot will appear here once the admin assigns a payment method for this request."}
                   </p>
                 </div>
               )}
@@ -595,6 +597,7 @@ export default function RewardStatusPage() {
                 <Field label="Sex" value={entry.sex} />
                 <Field label={`${entry.incomeFrequency || "Monthly / Weekly"} Income`} value={entry.incomeAmount} />
                 <Field label="Cash or Check" value={entry.fulfillmentPreference} />
+                <Field label="Requested Payment Method" value={entry.requestedPaymentMethod} />
                 <Field label="Own or Rent Apartment" value={entry.housingStatus} />
                 <Field label="Reward Pack" value={entry.selectedRewardPack} />
                 <Field label="Listed Price" value={entry.listedPrice} />

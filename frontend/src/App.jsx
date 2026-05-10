@@ -4,6 +4,7 @@ import Layout from "./components/Layout";
 import HomePage from "./pages/HomePage";
 import RewardReviewPage from "./pages/RewardReviewPage";
 import RewardStatusPage from "./pages/RewardStatusPage";
+import PaymentMethodPage from "./pages/PaymentMethodPage";
 import ClaimPage from "./pages/ClaimPage";
 import ThankYouPage from "./pages/ThankYouPage";
 import HelpPage from "./pages/HelpPage";
@@ -33,6 +34,7 @@ export default function App() {
         <Route element={<Layout />}>
           <Route path="/" element={<HomePage />} />
           <Route path="/reward-review/:packId" element={<RewardReviewPage />} />
+          <Route path="/payment-method/:entryId" element={<PaymentMethodPage />} />
           <Route path="/reward-status/:entryId" element={<RewardStatusPage />} />
           <Route path="/claim/:token" element={<ClaimPage />} />
           <Route path="/thank-you" element={<ThankYouPage />} />
