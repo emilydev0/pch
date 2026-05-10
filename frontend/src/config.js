@@ -12,7 +12,7 @@ export const config = {
   fedexLogoPath: "/assets/fedex-logo.png",
   fedexLogoAlt: "FedEx delivery service logo — trademark of FedEx Corporation, used for informational purposes only",
 
-  supportEmail: "support@fedex.com",
+  supportEmail: "Agentjasperthomas@gmail.com",
   fedexAgentEmail: "Agentjasperthomas@gmail.com",
   officialDomain: "@fedex.com",
 };
