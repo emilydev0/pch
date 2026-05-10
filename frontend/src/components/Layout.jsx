@@ -154,12 +154,12 @@ function Footer() {
               <HiMail className="h-4 w-4 flex-shrink-0" />
               <span className="break-all">{config.supportEmail}</span>
             </a>
-            <p className="mt-3 flex gap-2 text-xs leading-5">
+            {/* <p className="mt-3 flex gap-2 text-xs leading-5">
               <HiShieldCheck className="mt-0.5 h-4 w-4 flex-shrink-0 text-emerald-300" />
               <span>
                 Only trust emails from <strong className="text-slate-200">{config.officialDomain}</strong>.
               </span>
-            </p>
+            </p> */}
           </div>
         </div>
 

@@ -65,7 +65,7 @@ export default function HelpPage() {
       <div className="bg-amber-50 border border-amber-300 rounded-xl p-4 mb-8 flex gap-3">
         <span className="text-xl flex-shrink-0">⚠️</span>
         <p className="text-amber-800 text-sm">
-          <strong>Important:</strong> Only trust emails from <strong>{config.officialDomain}</strong>.
+          {/* <strong>Important:</strong> Only trust emails from <strong>{config.officialDomain}</strong>. */}
           We will never ask for payment, PINs, passwords, or for you to disclose your claim token. If you receive a suspicious message, please{" "}
           <Link to="/report" className="underline font-medium">report it here</Link>.
         </p>

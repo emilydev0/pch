@@ -91,7 +91,7 @@ export default function ThankYouPage() {
             </div>
           </div>
 
-          <div className="mt-6 rounded-2xl border border-blue-200 bg-blue-50 p-5 text-sm leading-6 text-blue-900">
+          {/* <div className="mt-6 rounded-2xl border border-blue-200 bg-blue-50 p-5 text-sm leading-6 text-blue-900">
             <div className="flex gap-3">
               <HiMail className="mt-0.5 h-5 w-5 flex-shrink-0" />
               <p>
@@ -100,7 +100,7 @@ export default function ThankYouPage() {
                 Only trust emails from <strong>{config.officialDomain}</strong>.
               </p>
             </div>
-          </div>
+          </div> */}
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <Link to="/help" className="inline-flex flex-1 items-center justify-center rounded-2xl bg-orange-600 px-5 py-3 text-sm font-bold text-white transition hover:bg-orange-700">

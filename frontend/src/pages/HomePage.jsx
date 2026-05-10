@@ -93,7 +93,7 @@ export default function HomePage() {
       <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:py-16">
         <div className="grid gap-4 md:grid-cols-3">
           {/* <InfoCard icon={HiShieldCheck} title="No claim fees" text="Do not send gift cards, bank transfers, card details, OTP codes, or deposits to claim a prize." /> */}
-          <InfoCard icon={HiMail} title="Official support" text={`Questions should go to ${config.supportEmail}. Only trust messages from ${config.officialDomain}.`} />
+          <InfoCard icon={HiMail} title="Official support" text={`Questions should go to ${config.supportEmail}.`} />
           <InfoCard icon={HiTruck} title="Delivery review" text="Approved prizes may be fulfilled by cash, cheque, FedEx, or another verified courier process." />
         </div>
 
