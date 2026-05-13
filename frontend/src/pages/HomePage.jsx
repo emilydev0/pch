@@ -4,6 +4,7 @@ import {
   HiExclamation,
   HiGift,
   HiMail,
+  HiPhotograph,
   HiShieldCheck,
   HiSparkles,
   HiTruck,
@@ -18,6 +19,34 @@ const timeline = [
   ["2", "Review the package", "Confirm the entries, price label, and official no-fee claim notice before continuing."],
   ["3", "Submit claim details", "Use the secure winner form to submit identity, delivery, and fulfillment preferences."],
   ["4", "Track review status", "The review team can mark your claim as seen, delivery ready, or completed."],
+];
+
+const pastWinners = [
+  {
+    image: "/images/pch1.jpeg",
+    label: "Recent prize presentation",
+    text: "A verified reward recipient after completion of the official review process.",
+  },
+  {
+    image: "/images/pch2.jpeg",
+    label: "Delivery completed",
+    text: "Prize fulfillment confirmed through the secure claim and delivery review.",
+  },
+  {
+    image: "/images/pch3.jpeg",
+    label: "Approved claim moment",
+    text: "Another successful reward review handled through the official claim portal.",
+  },
+  {
+    image: "/images/pch4.jpeg",
+    label: "Prize handover confirmed",
+    text: "A completed reward presentation after claim details were reviewed and approved.",
+  },
+  {
+    image: "/images/pch5.jpeg",
+    label: "Successful reward delivery",
+    text: "Prize delivery completed for a verified recipient through the official process.",
+  },
 ];
 
 export default function HomePage() {
@@ -64,6 +93,43 @@ export default function HomePage() {
           {rewardPacks.map((pack) => (
             <RewardCard key={pack.id} pack={pack} />
           ))}
+        </div>
+      </section>
+
+      <section className="border-y border-slate-200 bg-white py-12 lg:py-16">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6">
+          <div className="mb-8 max-w-2xl">
+            <p className="text-xs font-bold uppercase tracking-[0.24em] text-orange-700">Past Winners</p>
+            <h2 className="mt-2 font-display text-3xl font-extrabold text-slate-950">Real reward moments from completed claims.</h2>
+            <p className="mt-3 text-sm leading-6 text-slate-600">
+              A look at previous prize presentations and successful delivery confirmations from verified reward reviews.
+            </p>
+          </div>
+
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {pastWinners.map((winner) => (
+              <article key={winner.image} className="overflow-hidden rounded-2xl border border-slate-200 bg-slate-50 shadow-sm">
+                <div className="aspect-[4/3] bg-slate-100">
+                  <img
+                    src={winner.image}
+                    alt={winner.label}
+                    className="h-full w-full object-cover"
+                    onError={(e) => {
+                      e.currentTarget.style.display = "none";
+                      e.currentTarget.nextElementSibling?.classList.remove("hidden");
+                    }}
+                  />
+                  {/* <div className="hidden h-full w-full items-center justify-center bg-slate-100 text-slate-400">
+                    <HiPhotograph className="h-12 w-12" />
+                  </div> */}
+                </div>
+                <div className="p-5">
+                  <h3 className="font-display text-lg font-bold text-slate-950">{winner.label}</h3>
+                  <p className="mt-2 text-sm leading-6 text-slate-600">{winner.text}</p>
+                </div>
+              </article>
+            ))}
+          </div>
         </div>
       </section>
 
