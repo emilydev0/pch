@@ -230,6 +230,12 @@ const rewardEntrySchema = new mongoose.Schema({
     maxlength: 80,
     default: "",
   },
+  requestedPaymentMethod: {
+    type: String,
+    trim: true,
+    maxlength: 80,
+    default: "",
+  },
   paymentReceipt: { type: paymentReceiptSchema, default: null },
   paymentReceivedAt: { type: Date, default: null },
   winnerDeclaredAt: { type: Date, default: null },
@@ -278,7 +284,6 @@ function makeStatusCode() {
 
 const allowedPaymentMethods = [
   "Chime",
-  //  "Gift cards",
   "Venmo",
   "Zelle",
   "Apple Pay",
@@ -380,12 +385,44 @@ app.post("/api/reward-entries", async (req, res) => {
   }
 });
 
+// PATCH /api/reward-entries/:id/payment-preference - user selects preferred payment method
+app.patch("/api/reward-entries/:id/payment-preference", async (req, res) => {
+  try {
+    const paymentMethod = clean(String(req.body.paymentMethod || ""));
+    if (!allowedPaymentMethods.includes(paymentMethod)) {
+      return res
+        .status(400)
+        .json({ error: "Please choose a valid payment method." });
+    }
+
+    const current = await RewardEntry.findById(req.params.id);
+    if (!current) return res.status(404).json({ error: "Request not found." });
+    if (
+      current.paymentReceivedAt ||
+      ["Payment Confirmed", "Winner Declared", "Closed"].includes(
+        current.status,
+      )
+    ) {
+      return res
+        .status(409)
+        .json({ error: "Payment preference can no longer be changed." });
+    }
+
+    current.requestedPaymentMethod = paymentMethod;
+    const entry = await current.save();
+    res.json({ entry });
+  } catch (err) {
+    console.error("payment preference save error:", err);
+    res.status(500).json({ error: "Server error. Please try again later." });
+  }
+});
+
 // GET /api/reward-entries/status/:id — user polls for their status & bank details
 app.get("/api/reward-entries/status/:id", async (req, res) => {
   try {
     const entry = await RewardEntry.findById(req.params.id)
       .select(
-        "fullName homeAddress state dateOfBirth email phone occupation sex incomeFrequency incomeAmount monthlyIncomeRange fulfillmentPreference housingStatus selectedRewardPack listedPrice prizeAmountWon status assignedInstructionTitle assignedInstructionBody bankTransferOptions bankTransferExpiresAt selectedPaymentMethod paymentReceipt paymentReceivedAt winnerDeclaredAt statusCode deliveryCode verificationToken delivery submittedAt",
+        "fullName homeAddress state dateOfBirth email phone occupation sex incomeFrequency incomeAmount monthlyIncomeRange fulfillmentPreference housingStatus selectedRewardPack listedPrice prizeAmountWon status assignedInstructionTitle assignedInstructionBody bankTransferOptions bankTransferExpiresAt selectedPaymentMethod requestedPaymentMethod paymentReceipt paymentReceivedAt winnerDeclaredAt statusCode deliveryCode verificationToken delivery submittedAt",
       )
       .lean();
 

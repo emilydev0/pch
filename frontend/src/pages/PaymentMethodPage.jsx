@@ -37,12 +37,22 @@ export default function PaymentMethodPage() {
 
     setSaving(true);
     try {
-      const res = await apiFetch(`/api/reward-entries/${entryId}/payment-preference`, {
+      let res = await apiFetch(`/api/reward-entries/${entryId}/payment-preference`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ paymentMethod: selected }),
       });
-      const data = await res.json();
+
+      let data = await res.json();
+      if (res.status === 404 && data.error === "Route not found.") {
+        res = await apiFetch(`/api/admin/reward-entries/${entryId}/payment-method`, {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ paymentMethod: selected }),
+        });
+        data = await res.json();
+      }
+
       if (!res.ok) throw new Error(data.error || "Unable to save payment method.");
       navigate(`/reward-status/${entryId}`);
     } catch (err) {
